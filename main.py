@@ -1,14 +1,12 @@
-playfield_grid = [["0" for _ in range(10)] for _ in range(22)]
+playfield_grid = [[0 for _ in range(10)] for _ in range(22)]
 
-for row in playfield_grid[2:]:
-    print("".join(row))
+playfield_output = f"""\n{' ---' * 10}"""
+for y in range(20):
+    playfield_output += "\n|"
 
-
-playfield_output = f"""{' ---' * len(playfield_grid[0])}"""
-for i in range(len(playfield_grid)):
-    playfield_output += "\n"
-    playfield_output += "|" + "   |" * len(playfield_grid[0])
-    playfield_output += "\n"
-    playfield_output += " ---" * len(playfield_grid[0])
+    for x in range(10):
+        play_field_block = " ■ |" if playfield_grid[y][x] == 1 else "   |"
+        playfield_output += play_field_block
+playfield_output += f"\n{' ---' * 10}\n"
 
 print(playfield_output)
