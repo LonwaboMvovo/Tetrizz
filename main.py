@@ -80,13 +80,14 @@ def get_tetromino_coords(chosen_tetromino):
 
 
 def play_game():
-    playfield_grid = [[0 for _ in range(10)] for _ in range(22)]
+    legacy_grid = [[0 for _ in range(10)] for _ in range(22)]
 
     seven_bag = get_seven_bag()
 
     piece_iteration = 1
 
     while True:
+        playfield_grid = legacy_grid.copy()
         os.system('clear' if os.name == 'posix' else 'cls')
         
         if len(seven_bag) == 0:
@@ -99,15 +100,22 @@ def play_game():
         for frame in range(21):
             for pos in block_pos:
                 playfield_grid[pos[0]][pos[1]] = 1
+
+
+
             block_pos = drop_row(block_pos)
 
             print(piece_iteration, chosen_tetromino, frame)
             display_grid(playfield_grid, chosen_tetromino)
 
-            time.sleep(0.5)
+            time.sleep(0.1)
             os.system('clear' if os.name == 'posix' else 'cls')
 
-            playfield_grid = [[0 for _ in range(10)] for _ in range(22)]
+            if frame < 20:
+                playfield_grid = [[0 for _ in range(10)] for _ in range(22)]
+
+
+        legacy_grid = playfield_grid.copy()
 
         piece_iteration += 1
 
