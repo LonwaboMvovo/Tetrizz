@@ -2,6 +2,8 @@
 import time
 import os
 import random
+import keyboard
+
 
 from termcolor import colored
 
@@ -108,6 +110,14 @@ def get_tetromino_coords(chosen_tetromino):
     return block_start_pos
 
 
+def handle_key_press(e):
+    if e.name == 'q':
+        keyboard.press("ctrl+c")
+        keyboard.release("ctrl+c")
+    else:
+        print(e.name)
+
+
 def play_game():
     playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(22)]
     seven_bag = get_seven_bag()
@@ -148,6 +158,8 @@ def play_game():
             os.system('clear' if os.name == 'posix' else 'cls')
             print(piece_iteration, chosen_tetromino, frame)
             display_grid(playfield_grid)
+            
+            keyboard.on_press(handle_key_press)
 
             time.sleep(0.1)
 
