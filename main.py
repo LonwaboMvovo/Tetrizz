@@ -3,33 +3,70 @@ import time
 import os
 import random
 
-from rich import print
+from termcolor import colored
 
 
-def display_grid(playfield_grid, chosen_tetromino):
-    grid_colour = "grey53"
-    tetromino_colour = "bright_yellow"
+def can_move_down(playfield_grid, block_pos):
+    new_block_pos = move_down(block_pos)
 
-    if chosen_tetromino == "I":
-        tetromino_colour = "bright_cyan"
-    elif chosen_tetromino == "S":
-        tetromino_colour = "green"
-    elif chosen_tetromino == "Z":
-        tetromino_colour = "bright_red"
-    elif chosen_tetromino == "L":
-        tetromino_colour = "orange3"
-    elif chosen_tetromino == "J":
-        tetromino_colour = "bright_blue"
-    elif chosen_tetromino == "T":
-        tetromino_colour = "bright_magenta"
+    if any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
+        return False, block_pos, playfield_grid
 
-    playfield_output = f"\n[{grid_colour}]{' ---' * 10}"
+    return True, new_block_pos, playfield_grid
+
+
+def move_down(block_pos):
+    new_block_pos = list()
+
+    for i in range(4):
+        new_block_pos.append([block_pos[i][0]+1, block_pos[i][1]])
+
+    return new_block_pos
+
+
+def can_move_right():
+    return True
+
+
+def move_right():
+    pass
+
+
+def can_move_left():
+    return True
+
+
+def move_left():
+    pass
+
+
+def display_grid(playfield_grid):
+    playfield_output = f"\n{' ---' * 10}"
 
     for y in range(2, 22):
         playfield_output += "\n|"
 
         for x in range(10):
-            play_field_block = f" [{tetromino_colour}]■[{grid_colour}] |" if playfield_grid[y][x] == 1 else f"   |"
+            current_tetronimo = playfield_grid[y][x][1]
+
+            tetromino_colour = "white"
+            
+            if current_tetronimo == "I":
+                tetromino_colour = "cyan"
+            elif current_tetronimo == "S":
+                tetromino_colour = "green"
+            elif current_tetronimo == "Z":
+                tetromino_colour = "red"
+            elif current_tetronimo == "L":
+                tetromino_colour = "yellow"
+            elif current_tetronimo == "J":
+                tetromino_colour = "blue"
+            elif current_tetronimo == "T":
+                tetromino_colour = "magenta"
+
+            the_block = colored("■", tetromino_colour)
+
+            play_field_block = f" {the_block} |" if playfield_grid[y][x][1] != "E" else f"   |"
             playfield_output += play_field_block
 
     playfield_output += f"\n{' ---' * 10}\n"
@@ -48,14 +85,6 @@ def get_seven_bag():
         tetrominos.remove(chosen_piece)
 
     return seven_bag
-
-def drop_row(block_pos):
-    new_block_pos = list()
-
-    for i in range(4):
-        new_block_pos.append([block_pos[i][0]+1, block_pos[i][1]])
-
-    return new_block_pos
 
 
 def get_tetromino_coords(chosen_tetromino):
@@ -80,15 +109,14 @@ def get_tetromino_coords(chosen_tetromino):
 
 
 def play_game():
-    legacy_grid = [[0 for _ in range(10)] for _ in range(22)]
-
+    playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(22)]
     seven_bag = get_seven_bag()
 
     piece_iteration = 1
 
-    while True:
-        playfield_grid = legacy_grid.copy()
-        os.system('clear' if os.name == 'posix' else 'cls')
+    playing = True
+
+    while playing:
         
         if len(seven_bag) == 0:
             seven_bag = get_seven_bag()
@@ -97,28 +125,35 @@ def play_game():
 
         block_pos = get_tetromino_coords(chosen_tetromino)
 
-        for frame in range(21):
+        for frame in range(20):
             for pos in block_pos:
-                playfield_grid[pos[0]][pos[1]] = 1
+                playfield_grid[pos[0]][pos[1]][0] = 2
+                playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
 
+            for y, x in block_pos:
+                playfield_grid[y][x][0] = 0
+                playfield_grid[y][x][1] = "E"
 
+            allowed_bot, block_pos, playfield_grid = can_move_down(playfield_grid, block_pos)
 
-            block_pos = drop_row(block_pos)
+            for i in range(4):
+                playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
 
+            if not allowed_bot:
+                if block_pos == get_tetromino_coords(chosen_tetromino):
+                    playing = False
+                break
+
+            os.system('clear' if os.name == 'posix' else 'cls')
             print(piece_iteration, chosen_tetromino, frame)
-            display_grid(playfield_grid, chosen_tetromino)
+            display_grid(playfield_grid)
 
             time.sleep(0.1)
-            os.system('clear' if os.name == 'posix' else 'cls')
-
-            if frame < 20:
-                playfield_grid = [[0 for _ in range(10)] for _ in range(22)]
-
-
-        legacy_grid = playfield_grid.copy()
 
         piece_iteration += 1
 
+    print("GAME OVER!!!")
 
 if __name__ == "__main__":
     play_game()
