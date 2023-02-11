@@ -6,11 +6,18 @@ import keyboard
 
 from termcolor import colored
 
-# TODO have one can move function which takes a direction parameter as well
-def can_move_down(playfield_grid, block_pos):
-    new_block_pos = move_down(block_pos)
 
-    if any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
+def can_move(playfield_grid, block_pos, direction="D"):
+    if direction == "L":
+        new_block_pos = move_left(block_pos)
+    elif direction == "R":
+        new_block_pos = move_right(block_pos)
+    else:
+        new_block_pos = move_down(block_pos)
+
+    if (any(x > 9  for y, x in new_block_pos) or
+            any(x < 0  for y, x in new_block_pos) or
+            any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos)):
         return False, block_pos, playfield_grid
 
     return True, new_block_pos, playfield_grid
@@ -25,15 +32,6 @@ def move_down(block_pos):
     return new_block_pos
 
 
-def can_move_right(playfield_grid, block_pos):
-    new_block_pos = move_right(block_pos)
-
-    if any(x > 9  for y, x in new_block_pos) or any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
-        return False, block_pos, playfield_grid
-
-    return True, new_block_pos, playfield_grid
-
-
 def move_right(block_pos):
     new_block_pos = list()
 
@@ -41,15 +39,6 @@ def move_right(block_pos):
         new_block_pos.append([block_pos[i][0], block_pos[i][1]+1])
 
     return new_block_pos
-
-
-def can_move_left(playfield_grid, block_pos):
-    new_block_pos = move_left(block_pos)
-
-    if any(x < 0  for y, x in new_block_pos) or any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
-        return False, block_pos, playfield_grid
-
-    return True, new_block_pos, playfield_grid
 
 
 def move_left(block_pos):
@@ -169,7 +158,7 @@ def play_game():
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
 
-                    allowed_bot, block_pos, playfield_grid = can_move_left(playfield_grid, block_pos)
+                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "L")
 
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
@@ -184,7 +173,7 @@ def play_game():
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
 
-                    allowed_bot, block_pos, playfield_grid = can_move_right(playfield_grid, block_pos)
+                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "R")
 
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
@@ -196,7 +185,7 @@ def play_game():
                 playfield_grid[y][x][0] = 0
                 playfield_grid[y][x][1] = "E"
 
-            allowed_bot, block_pos, playfield_grid = can_move_down(playfield_grid, block_pos)
+            allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
 
             for i in range(4):
                 playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
