@@ -6,7 +6,7 @@ import keyboard
 
 from termcolor import colored
 
-
+# TODO have one can move function which takes a direction parameter as well
 def can_move_down(playfield_grid, block_pos):
     new_block_pos = move_down(block_pos)
 
@@ -25,20 +25,40 @@ def move_down(block_pos):
     return new_block_pos
 
 
-def can_move_right():
-    return True
+def can_move_right(playfield_grid, block_pos):
+    new_block_pos = move_right(block_pos)
+
+    if any(x > 9  for y, x in new_block_pos) or any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
+        return False, block_pos, playfield_grid
+
+    return True, new_block_pos, playfield_grid
 
 
-def move_right():
-    pass
+def move_right(block_pos):
+    new_block_pos = list()
+
+    for i in range(4):
+        new_block_pos.append([block_pos[i][0], block_pos[i][1]+1])
+
+    return new_block_pos
 
 
-def can_move_left():
-    return True
+def can_move_left(playfield_grid, block_pos):
+    new_block_pos = move_left(block_pos)
+
+    if any(x < 0  for y, x in new_block_pos) or any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos):
+        return False, block_pos, playfield_grid
+
+    return True, new_block_pos, playfield_grid
 
 
-def move_left():
-    pass
+def move_left(block_pos):
+    new_block_pos = list()
+
+    for i in range(4):
+        new_block_pos.append([block_pos[i][0], block_pos[i][1]-1])
+
+    return new_block_pos
 
 
 def display_grid(playfield_grid):
@@ -141,10 +161,34 @@ def play_game():
                 display_grid(playfield_grid)
                 
                 if keyboard.is_pressed("left"):
-                    print("LEFT")
+                    for pos in block_pos:
+                        playfield_grid[pos[0]][pos[1]][0] = 2
+                        playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
+
+                    for y, x in block_pos:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+
+                    allowed_bot, block_pos, playfield_grid = can_move_left(playfield_grid, block_pos)
+
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 
-                if keyboard.is_pressed("right"):
-                    print("RIGHT")
+                elif keyboard.is_pressed("right"):
+                    for pos in block_pos:
+                        playfield_grid[pos[0]][pos[1]][0] = 2
+                        playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
+
+                    for y, x in block_pos:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+
+                    allowed_bot, block_pos, playfield_grid = can_move_right(playfield_grid, block_pos)
+
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
             
                 current_time = time.time()
 
