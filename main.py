@@ -17,7 +17,7 @@ def can_move(playfield_grid, block_pos, direction="D"):
 
     if (any(x > 9  for y, x in new_block_pos) or
             any(x < 0  for y, x in new_block_pos) or
-            any(playfield_grid[y][x][0] == 1 for y, x in new_block_pos)):
+            any(y > 21 or playfield_grid[y][x][0] == 1 for y, x in new_block_pos)):
         return False, block_pos, playfield_grid
 
     return True, new_block_pos, playfield_grid
@@ -50,6 +50,14 @@ def move_left(block_pos):
     return new_block_pos
 
 
+def can_rotate():
+    pass
+
+
+def rotate():
+    pass
+
+
 def display_grid(playfield_grid):
     playfield_output = f"\n{' ---' * 10}"
 
@@ -77,6 +85,7 @@ def display_grid(playfield_grid):
             the_block = colored("■", tetromino_colour)
 
             play_field_block = f" {the_block} |" if playfield_grid[y][x][1] != "E" else f"   |"
+
             playfield_output += play_field_block
 
     playfield_output += f"\n{' ---' * 10}\n"
@@ -122,12 +131,10 @@ def play_game():
     playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(22)]
     seven_bag = get_seven_bag()
 
-    piece_iteration = 1
-
     playing = True
+    qweet = False
 
     while playing:
-        
         if len(seven_bag) == 0:
             seven_bag = get_seven_bag()
 
@@ -135,25 +142,29 @@ def play_game():
 
         block_pos = get_tetromino_coords(chosen_tetromino)
 
-        for frame in range(20):
+        for _ in range(20):
             for pos in block_pos:
                 playfield_grid[pos[0]][pos[1]][0] = 2
                 playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
+
+            change_state = True
 
             current_time = time.time()
             frame_time = 0.1
             end_time = current_time + frame_time
 
             while current_time < end_time:
-                os.system('clear' if os.name == 'posix' else 'cls')
-                print(piece_iteration, chosen_tetromino, frame)
-                display_grid(playfield_grid)
-                
-                if keyboard.is_pressed("left"):
-                    for pos in block_pos:
-                        playfield_grid[pos[0]][pos[1]][0] = 2
-                        playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
+                if change_state:
+                    os.system('clear' if os.name == 'posix' else 'cls')
+                    display_grid(playfield_grid)
 
+                    change_state = False
+
+                if keyboard.is_pressed("q"):
+                    qweet = True
+                    break
+                    
+                if keyboard.is_pressed("left"):
                     for y, x in block_pos:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
@@ -163,12 +174,10 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
+
+                    change_state = True
                 
                 elif keyboard.is_pressed("right"):
-                    for pos in block_pos:
-                        playfield_grid[pos[0]][pos[1]][0] = 2
-                        playfield_grid[pos[0]][pos[1]][1] = chosen_tetromino
-
                     for y, x in block_pos:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
@@ -178,8 +187,16 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
+
+                    change_state = True
+                elif keyboard.is_pressed("up"):
+                    pass
             
                 current_time = time.time()
+
+            if qweet:
+                playing = False
+                break
 
             for y, x in block_pos:
                 playfield_grid[y][x][0] = 0
@@ -195,8 +212,6 @@ def play_game():
                 if block_pos == get_tetromino_coords(chosen_tetromino):
                     playing = False
                 break
-
-        piece_iteration += 1
 
     print("GAME OVER!!!")
 
