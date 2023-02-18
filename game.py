@@ -9,42 +9,97 @@ def can_move(playfield_grid, block_pos, direction="D"):
         new_block_pos = move_left(block_pos)
     elif direction == "R":
         new_block_pos = move_right(block_pos)
-    else:
+    elif direction == "D":
         new_block_pos = move_down(block_pos)
 
-    if (any(x > 9  for y, x in new_block_pos) or
-            any(x < 0  for y, x in new_block_pos) or
-            any(y > 21 or playfield_grid[y][x][0] == 1 for y, x in new_block_pos)):
+    if (any(x > 9  for y, x in new_block_pos[:-1]) or
+            any(x < 0  for y, x in new_block_pos[:-1]) or
+            any(y > 21 or playfield_grid[y][x][0] == 1 for y, x in new_block_pos[:-1])):
         return False, block_pos, playfield_grid
 
     return True, new_block_pos, playfield_grid
 
 
 def move_down(block_pos):
-    new_block_pos = list()
+    new_block_pos = block_pos.copy()
 
     for i in range(4):
-        new_block_pos.append([block_pos[i][0]+1, block_pos[i][1]])
+        new_block_pos[i] = [block_pos[i][0]+1, block_pos[i][1]]
 
     return new_block_pos
 
 
 def move_right(block_pos):
-    new_block_pos = list()
+    new_block_pos = block_pos.copy()
 
     for i in range(4):
-        new_block_pos.append([block_pos[i][0], block_pos[i][1]+1])
+        new_block_pos[i] = [block_pos[i][0], block_pos[i][1]+1]
 
     return new_block_pos
 
 
 def move_left(block_pos):
-    new_block_pos = list()
+    new_block_pos = block_pos.copy()
 
     for i in range(4):
-        new_block_pos.append([block_pos[i][0], block_pos[i][1]-1])
+        new_block_pos[i] = [block_pos[i][0], block_pos[i][1]-1]
 
     return new_block_pos
+
+
+def can_rotate(playfield_grid, block_pos, current_tetronimo, direction="C"):
+    if direction == "AC":
+        new_block_pos = rotate_anti_clockwise(block_pos, current_tetronimo)
+    elif direction == "C":
+        new_block_pos = rotate_clockwise(block_pos, current_tetronimo)
+
+    if (any(x > 9  for y, x in new_block_pos[:-1]) or
+            any(x < 0  for y, x in new_block_pos[:-1]) or
+            any(y > 21 or playfield_grid[y][x][0] == 1 for y, x in new_block_pos[:-1])):
+        return False, block_pos, playfield_grid
+
+    return True, new_block_pos, playfield_grid
+
+
+def rotate_clockwise(block_pos, current_tetronimo):
+    new_block_pos = block_pos.copy()
+
+    if block_pos[-1] == "up":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]-1, new_block_pos[0][1]+2]
+            new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]+1]
+            new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]]
+            new_block_pos[3] = [new_block_pos[3][0]+2, new_block_pos[3][1]-1]
+            new_block_pos[4] = "right"
+    elif block_pos[-1] == "right":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]+2, new_block_pos[0][1]+1]
+            new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]]
+            new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]-2]
+            new_block_pos[4] = "down"
+    elif block_pos[-1] == "down":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]+1, new_block_pos[0][1]-2]
+            new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]-1]
+            new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]]
+            new_block_pos[3] = [new_block_pos[3][0]-2, new_block_pos[3][1]+1]
+            new_block_pos[4] = "left"
+    elif block_pos[-1] == "left":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]-2, new_block_pos[0][1]-1]
+            new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]]
+            new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+2]
+            new_block_pos[4] = "up"
+
+    
+
+    return new_block_pos
+
+
+def rotate_anti_clockwise(block_pos, current_tetronimo):
+    pass
 
 
 def display_grid(playfield_grid):
@@ -90,19 +145,19 @@ def get_tetromino_coords(chosen_tetromino):
     block_start_pos = list()
 
     if chosen_tetromino == "O":
-        block_start_pos = [[1, 4], [0, 4], [0, 5], [1, 5]]
+        block_start_pos = [[1, 4], [0, 4], [0, 5], [1, 5], "up"]
     elif chosen_tetromino == "I":
-        block_start_pos = [[1, 3], [1, 4], [1, 5], [1, 6]]
+        block_start_pos = [[1, 3], [1, 4], [1, 5], [1, 6], "up"]
     elif chosen_tetromino == "S":
-        block_start_pos = [[1, 3], [1, 4], [0, 4], [0, 5]]
+        block_start_pos = [[1, 3], [1, 4], [0, 4], [0, 5], "up"]
     elif chosen_tetromino == "Z":
-        block_start_pos = [[0, 3], [0, 4], [1, 4], [1, 5]]
+        block_start_pos = [[0, 3], [0, 4], [1, 4], [1, 5], "up"]
     elif chosen_tetromino == "L":
-        block_start_pos = [[1, 3], [1, 4], [1, 5], [0, 5]]
+        block_start_pos = [[1, 3], [1, 4], [1, 5], [0, 5], "up"]
     elif chosen_tetromino == "J":
-        block_start_pos = [[0, 3], [1, 3], [1, 4], [1, 5]]
+        block_start_pos = [[0, 3], [1, 3], [1, 4], [1, 5], "up"]
     elif chosen_tetromino == "T":
-        block_start_pos = [[1,3], [1, 4], [0, 4], [1, 5]]
+        block_start_pos = [[1,3], [1, 4], [0, 4], [1, 5], "up"]
 
     return block_start_pos
 
@@ -135,68 +190,83 @@ def play_game():
                 end_game()
             
             if event.type == tetromino_drop_timer:
-                for y, x in block_pos:
+                for y, x in block_pos[:-1]:
                     playfield_grid[y][x][0] = 0
                     playfield_grid[y][x][1] = "E"
 
-                allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
+                allowed_move, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
 
-                if not allowed_bot:
+                if not allowed_move:
                     if block_pos == get_tetromino_coords(chosen_tetromino):
                         end_game()
 
                     new_iteration = True
 
-                for y, x in block_pos:
-                    playfield_grid[y][x][0] = 1
+                for y, x in block_pos[:-1]:
+                    playfield_grid[y][x][0] = 2
                     playfield_grid[y][x][1] = chosen_tetromino
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    for y, x in block_pos:
+                    for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
 
-                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "L")
+                    allowed_move, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "L")
 
                     for i in range(4):
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 elif event.key == pygame.K_RIGHT:
-                    for y, x in block_pos:
+                    for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
 
-                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "R")
+                    allowed_move, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "R")
 
                     for i in range(4):
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 
                 if event.key == pygame.K_UP:
-                    print("ROTATE PIECE CLOCKWISE")
+                    for y, x in block_pos[:-1]:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+        
+                    allowed_move, block_pos, playfield_grid = can_rotate(playfield_grid, block_pos, chosen_tetromino)
+                    
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 
-                if event.key == pygame.K_DOWN:
-                    print("SOFT DROP - MOVE PIECE DOWN 1")
+                # TODO might not add soft drop
+                # if event.key == pygame.K_DOWN:
+                #     print("SOFT DROP - MOVE PIECE DOWN 1")
                 
                 if event.key == pygame.K_SPACE:
                     while True:
-                        for y, x in block_pos:
+                        for y, x in block_pos[:-1]:
                             playfield_grid[y][x][0] = 0
                             playfield_grid[y][x][1] = "E"
 
-                        allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
+                        allowed_move, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
 
-                        for y, x in block_pos:
-                            playfield_grid[y][x][0] = 1
+                        for y, x in block_pos[:-1]:
+                            playfield_grid[y][x][0] = 2
                             playfield_grid[y][x][1] = chosen_tetromino
 
-                        if not allowed_bot:
+                        if not allowed_move:
                             break
                     
                     new_iteration = True
 
         if new_iteration:
+            # Set current tetromino to be part of board
+            for y in range(2, 22):
+                for x in range(10):
+                    if playfield_grid[y][x][0] == 2:
+                        playfield_grid[y][x][0] = 1
+
             # If bag is empty get a new bag of 7 random pieces
             if len(seven_bag) == 0:
                 seven_bag = get_seven_bag()
