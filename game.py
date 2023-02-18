@@ -107,6 +107,12 @@ def get_tetromino_coords(chosen_tetromino):
     return block_start_pos
 
 
+def end_game():
+    print("GAME OVER!!!")
+    pygame.quit()
+    exit()
+
+
 def play_game():
     # Make new empty field, "E" meaning empty and will be replaced by piece colour later
     playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(22)]
@@ -125,10 +131,8 @@ def play_game():
     while True:
         # Check player inputs/events
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_q:
-                print("GAME OVER!!!")
-                pygame.quit()
-                exit()
+            if (event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_q):
+                end_game()
             
             if event.type == tetromino_drop_timer:
                 for y, x in block_pos:
@@ -138,6 +142,9 @@ def play_game():
                 allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
 
                 if not allowed_bot:
+                    if block_pos == get_tetromino_coords(chosen_tetromino):
+                        end_game()
+
                     new_iteration = True
 
                 for y, x in block_pos:
