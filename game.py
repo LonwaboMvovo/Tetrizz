@@ -153,9 +153,25 @@ def play_game():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    print("MOVE PIECE TO THE LEFT 1")
+                    for y, x in block_pos:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+
+                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "L")
+
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 elif event.key == pygame.K_RIGHT:
-                    print("MOVE PIECE TO THE RIGHT 1")
+                    for y, x in block_pos:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+
+                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "R")
+
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 elif event.key == pygame.K_UP:
                     print("ROTATE PIECE CLOCKWISE")
                 elif event.key == pygame.K_DOWN:
