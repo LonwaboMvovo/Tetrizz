@@ -70,3 +70,15 @@ Grid coords:
 19 |   |   |   |   |   |   |   |   |   |   |
 20 |   |   |   |   |   |   |   |   |   |   |
 21 |   |   |   |   |   |   |   |   |   |   |
+
+Lines_Cleared:
+- Starting from bottom of board checking next 20
+    - check if current row is full
+        - if yes
+            - check if next row is full
+                -if yes
+                    - check if next row is full
+                
+                - if no you scored single
+        - if not
+            check go next row

@@ -391,6 +391,42 @@ def get_tetromino_coords(chosen_tetromino):
     return block_start_pos
 
 
+def check_lines_cleared(playfield_grid):
+    for y in range(21, 1, -1):
+        lines_cleard = 0
+
+        if all(col[0] for col in playfield_grid[y]):
+            next_y = y-1
+            lines_cleard += 1
+
+            if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
+                print("SINGLE")
+            else:
+                next_y -=1
+                lines_cleard += 1
+
+                if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
+                    print("DOUBLE")
+                else:
+                    next_y -=1
+                    lines_cleard += 1
+
+                    if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
+                        print("TRIPLE")
+                    else:
+                        next_y -=1
+                        lines_cleard += 1
+
+                        if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
+                            print("TETRIS")
+        
+        if lines_cleard > 0:
+            print(lines_cleard)
+            break
+
+    return playfield_grid
+
+
 def end_game():
     print("GAME OVER!!!")
     pygame.quit()
@@ -506,6 +542,8 @@ def play_game():
                     if playfield_grid[y][x][0] == 2:
                         playfield_grid[y][x][0] = 1
 
+            check_lines_cleared(playfield_grid)
+
             # If bag is empty get a new bag of 7 random pieces
             if len(seven_bag) == 0:
                 seven_bag = get_seven_bag()
@@ -554,5 +592,5 @@ pygame.time.set_timer(tetromino_drop_timer, 500)
 if __name__ == "__main__":
     play_game()
 
-# TODO LET PIECES TURN COUNTER CLOCKWISE
 # TODO CLEAR BOARD WHEN GETS LINE IN A ROW
+# TODO SHOW GHOST PIECE
