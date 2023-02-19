@@ -336,6 +336,7 @@ def display_grid(playfield_grid):
         for x in range(10):
             current_tetronimo = playfield_grid[y][x][1]
 
+
             tetromino_colour = (42,43,46)
 
             if current_tetronimo == "O":
@@ -355,6 +356,29 @@ def display_grid(playfield_grid):
 
             screen.fill(tetromino_colour, pygame.Rect((x * 35, (y-2) * 35), (35, 35)))
     return
+
+
+def display_ghost(pg, bp):
+    while True:
+        allowed_move, bp, pg = can_move(pg, bp)
+
+        if not allowed_move:
+            break
+    
+    for y, x in bp[:-1]:
+        if pg[y][x][1]  == "E":
+            pg[y][x][0] = 3
+            pg[y][x][1] = "G"
+
+    for y in range(2, 22):
+        for x in range(10):
+            current_tetronimo = pg[y][x][1]
+
+            if current_tetronimo == "G":
+                tetromino_colour = "grey"
+
+                screen.fill(tetromino_colour, pygame.Rect((x * 35, (y-2) * 35), (35, 35)))
+            
 
 
 def get_seven_bag():
@@ -500,6 +524,14 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
+                    
+                    for y in range(2, 22):
+                        for x in range(10):
+                            current_tetronimo = playfield_grid[y][x][1]
+
+                            if current_tetronimo == "G":
+                                playfield_grid[y][x][0] = 0
+                                playfield_grid[y][x][1] = "E"
                 elif event.key == pygame.K_RIGHT:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
@@ -510,7 +542,14 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
-                
+
+                    for y in range(2, 22):
+                        for x in range(10):
+                            current_tetronimo = playfield_grid[y][x][1]
+
+                            if current_tetronimo == "G":
+                                playfield_grid[y][x][0] = 0
+                                playfield_grid[y][x][1] = "E"
                 if event.key == pygame.K_UP:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
@@ -521,6 +560,14 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
+                    
+                    for y in range(2, 22):
+                        for x in range(10):
+                            current_tetronimo = playfield_grid[y][x][1]
+
+                            if current_tetronimo == "G":
+                                playfield_grid[y][x][0] = 0
+                                playfield_grid[y][x][1] = "E"
                 elif event.key == pygame.K_s:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
@@ -531,7 +578,14 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
-                
+
+                    for y in range(2, 22):
+                        for x in range(10):
+                            current_tetronimo = playfield_grid[y][x][1]
+
+                            if current_tetronimo == "G":
+                                playfield_grid[y][x][0] = 0
+                                playfield_grid[y][x][1] = "E"
                 if event.key == pygame.K_DOWN:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
@@ -578,6 +632,7 @@ def play_game():
             new_iteration = False
         
         display_grid(playfield_grid)
+        display_ghost(playfield_grid.copy(), block_pos.copy())
 
         # Draw board outline
         for x in range(35, 400, 35):
@@ -616,5 +671,3 @@ pygame.time.set_timer(tetromino_drop_timer, 500)
 
 if __name__ == "__main__":
     play_game()
-
-# TODO SHOW GHOST PIECE
