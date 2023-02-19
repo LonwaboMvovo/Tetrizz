@@ -650,6 +650,64 @@ def play_game():
         for y in range(70, 800, 30):
             pygame.draw.line(screen, "black", (0+325, y), (300+325, y), width = 1)
 
+        # Drow hold piece area
+        pygame.draw.rect(screen, "black", (150, 70, 150, 120), width = 1, border_radius = 10)
+        hold_text = pixel_type_font.render(f"Hold", False, "grey")
+        hold_text_rect = hold_text.get_rect(midtop = (225, 80))
+        screen.blit(hold_text, hold_text_rect)
+
+        held_piece = "Z"
+
+        if held_piece == "O":
+            screen.fill((180,154,51), pygame.Rect((195, 120), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((225, 120), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((225, 150), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((195, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (195, 120, 60, 60), width = 1)
+            pygame.draw.line(screen, "black", (225, 120), (225, 180), width = 1)
+            pygame.draw.line(screen, "black", (195, 150), (255, 150), width = 1)
+        elif held_piece == "I":
+            screen.fill((50,180,132), pygame.Rect((165, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((195, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((225, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((255, 130), (30, 30)))
+            pygame.draw.rect(screen, "black", (165, 130, 120, 30), width = 1)
+            pygame.draw.line(screen, "black", (195, 130), (195, 160), width = 1)
+            pygame.draw.line(screen, "black", (225, 130), (225, 160), width = 1)
+            pygame.draw.line(screen, "black", (255, 130), (255, 160), width = 1)
+        elif held_piece == "S":
+            screen.fill((130,178,49), pygame.Rect((195, 120), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((225, 120), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((195, 150), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((165, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (195, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (165, 150), (225, 150), width = 1)
+            pygame.draw.line(screen, "black", (165, 150), (165, 180), width = 1)
+            pygame.draw.line(screen, "black", (165, 180), (195, 180), width = 1)
+            pygame.draw.line(screen, "black", (225, 150), (255, 150), width = 1)
+            pygame.draw.line(screen, "black", (225, 120), (255, 120), width = 1)
+            pygame.draw.line(screen, "black", (255, 120), (255, 150), width = 1)
+        elif held_piece == "Z":
+            screen.fill((182,53,60), pygame.Rect((225, 120), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((195, 120), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((255, 150), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((225, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (225, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (195, 150), (285, 150), width = 1)
+            pygame.draw.line(screen, "black", (285, 150), (285, 180), width = 1)
+            pygame.draw.line(screen, "black", (255, 180), (255, 180), width = 1)
+            pygame.draw.line(screen, "black", (195, 150), (225, 150), width = 1)
+            pygame.draw.line(screen, "black", (195, 120), (225, 120), width = 1)
+            pygame.draw.line(screen, "black", (195, 120), (195, 150), width = 1)
+        elif held_piece == "L":
+            pass
+        elif held_piece == "J":
+            pass
+        elif held_piece == "T":
+            pass
+        else:
+            pass
+
         # Update screen/display
         pygame.display.update()
         # max set to 60 frames/sec
@@ -676,6 +734,8 @@ screen.fill(screen_bg_colour)
 # Timers:
 tetromino_drop_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(tetromino_drop_timer, 500)
+
+pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
 
 
 if __name__ == "__main__":
