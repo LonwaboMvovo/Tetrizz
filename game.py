@@ -401,24 +401,67 @@ def check_lines_cleared(playfield_grid):
 
             if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                 print("SINGLE")
+
+                for x in range(0, 10):
+                    playfield_grid[y][x][0] = 0
+                    playfield_grid[y][x][1] = "E"
+
+                new_playfield_grid = [[[0, "E"] for _ in range(10)]]
+
+                new_playfield_grid += playfield_grid[:-1]
+
+                playfield_grid = new_playfield_grid 
             else:
                 next_y -=1
                 lines_cleard += 1
 
                 if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                     print("DOUBLE")
+
+                    for y in range(y, next_y):
+                        for x in range(0, 10):
+                            playfield_grid[y][x][0] = 0
+                            playfield_grid[y][x][1] = "E"
+
+                    new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(2)]
+
+                    new_playfield_grid += playfield_grid[:-2]
+
+                    playfield_grid = new_playfield_grid
                 else:
                     next_y -=1
                     lines_cleard += 1
 
                     if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                         print("TRIPLE")
+
+                        for y in range(y, next_y):
+                            for x in range(0, 10):
+                                playfield_grid[y][x][0] = 0
+                                playfield_grid[y][x][1] = "E"
+
+                        new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(3)]
+
+                        new_playfield_grid += playfield_grid[:-3]
+
+                        playfield_grid = new_playfield_grid
                     else:
                         next_y -=1
                         lines_cleard += 1
 
                         if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                             print("TETRIS")
+
+                            for y in range(y, next_y):
+                                for x in range(0, 10):
+                                    playfield_grid[y][x][0] = 0
+                                    playfield_grid[y][x][1] = "E"
+
+                            new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(4)]
+
+                            new_playfield_grid += playfield_grid[:-4]
+
+                            playfield_grid = new_playfield_grid
         
         if lines_cleard > 0:
             print(lines_cleard)
@@ -542,7 +585,7 @@ def play_game():
                     if playfield_grid[y][x][0] == 2:
                         playfield_grid[y][x][0] = 1
 
-            check_lines_cleared(playfield_grid)
+            playfield_grid = check_lines_cleared(playfield_grid)
 
             # If bag is empty get a new bag of 7 random pieces
             if len(seven_bag) == 0:
