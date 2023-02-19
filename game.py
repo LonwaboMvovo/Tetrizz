@@ -532,9 +532,16 @@ def play_game():
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 
-                # TODO might not add soft drop
-                # if event.key == pygame.K_DOWN:
-                #     print("SOFT DROP - MOVE PIECE DOWN 1")
+                if event.key == pygame.K_DOWN:
+                    for y, x in block_pos[:-1]:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+
+                    allowed_move, block_pos, playfield_grid = can_move(playfield_grid, block_pos)
+
+                    for y, x in block_pos[:-1]:
+                        playfield_grid[y][x][0] = 2
+                        playfield_grid[y][x][1] = chosen_tetromino
                 
                 if event.key == pygame.K_SPACE:
                     while True:
@@ -610,5 +617,4 @@ pygame.time.set_timer(tetromino_drop_timer, 500)
 if __name__ == "__main__":
     play_game()
 
-# TODO CLEAR BOARD WHEN GETS LINE IN A ROW
 # TODO SHOW GHOST PIECE
