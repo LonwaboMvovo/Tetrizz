@@ -336,7 +336,6 @@ def display_grid(playfield_grid):
         for x in range(10):
             current_tetronimo = playfield_grid[y][x][1]
 
-
             tetromino_colour = (42,43,46)
 
             if current_tetronimo == "O":
@@ -354,7 +353,7 @@ def display_grid(playfield_grid):
             elif current_tetronimo == "T":
                 tetromino_colour = (207,60,193)
 
-            screen.fill(tetromino_colour, pygame.Rect((x * 35, (y-2) * 35), (35, 35)))
+            screen.fill(tetromino_colour, pygame.Rect((x * 35 + 325, (y-2) * 35), (35, 35)))
     return
 
 
@@ -377,9 +376,8 @@ def display_ghost(pg, bp):
             if current_tetronimo == "G":
                 tetromino_colour = "grey"
 
-                screen.fill(tetromino_colour, pygame.Rect((x * 35, (y-2) * 35), (35, 35)))
+                screen.fill(tetromino_colour, pygame.Rect((x * 35 + 325, (y-2) * 35), (35, 35)))
             
-
 
 def get_seven_bag():
     tetrominos = ["O", "I", "S", "Z", "L", "J", "T"]
@@ -586,7 +584,7 @@ def play_game():
                             if current_tetronimo == "G":
                                 playfield_grid[y][x][0] = 0
                                 playfield_grid[y][x][1] = "E"
-                if event.key == pygame.K_DOWN:
+                elif event.key == pygame.K_DOWN:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
@@ -635,11 +633,11 @@ def play_game():
         display_ghost(playfield_grid.copy(), block_pos.copy())
 
         # Draw board outline
-        for x in range(35, 400, 35):
+        for x in range(0+325, 385+325, 35):
             pygame.draw.line(screen, "black", (x, 0), (x, 700), width = 1)
 
         for y in range(35, 800, 35):
-            pygame.draw.line(screen, "black", (0, y), (400, y), width = 1)
+            pygame.draw.line(screen, "black", (0+325, y), (350+325, y), width = 1)
 
         # Update screen/display
         pygame.display.update()
@@ -660,7 +658,7 @@ icon_surface.fill((139,0,139))
 pygame.display.set_icon(icon_surface)
 
 # Set background
-screen = pygame.display.set_mode((350, 700))
+screen = pygame.display.set_mode((1000, 700))
 screen_bg_colour = (42,43,46)
 screen.fill(screen_bg_colour)
 
@@ -671,3 +669,7 @@ pygame.time.set_timer(tetromino_drop_timer, 500)
 
 if __name__ == "__main__":
     play_game()
+
+# TODO:
+# SWAP/HOLD PIECE
+# SHOW NEXT PIECE
