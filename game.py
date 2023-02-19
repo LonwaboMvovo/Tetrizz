@@ -192,13 +192,143 @@ def rotate_clockwise(block_pos, current_tetronimo):
             new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]+1]
             new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+1]
             new_block_pos[4] = "up"
-    
 
     return new_block_pos
 
 
 def rotate_anti_clockwise(block_pos, current_tetronimo):
-    pass
+    new_block_pos = block_pos.copy()
+
+    if block_pos[-1] == "up":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]+2, new_block_pos[0][1]+1]
+            new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]]
+            new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]-2]
+            new_block_pos[4] = "left"
+        # elif current_tetronimo == "J":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "left"
+        # elif current_tetronimo == "L":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "left"
+        # elif current_tetronimo == "S":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "left"
+        # elif current_tetronimo == "T":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "left"
+        # elif current_tetronimo == "Z":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "left"
+    elif block_pos[-1] == "left":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]-1, new_block_pos[0][1]+2]
+            new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]+1]
+            new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]]
+            new_block_pos[3] = [new_block_pos[3][0]+2, new_block_pos[3][1]-1]
+            new_block_pos[4] = "down"
+        # elif current_tetronimo == "J":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "down"
+        # elif current_tetronimo == "L":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "down"
+        # elif current_tetronimo == "S":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "down"
+        # elif current_tetronimo == "T":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "down"
+        # elif current_tetronimo == "Z":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "down"
+    elif block_pos[-1] == "down":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]-2, new_block_pos[0][1]-1]
+            new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]]
+            new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+2]
+            new_block_pos[4] = "right"
+        # elif current_tetronimo == "J":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "right"
+        # elif current_tetronimo == "L":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "right"
+        # elif current_tetronimo == "S":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "right"
+        # elif current_tetronimo == "T":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "right"
+        # elif current_tetronimo == "Z":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "right"
+    elif block_pos[-1] == "right":
+        if current_tetronimo == "I":
+            new_block_pos[0] = [new_block_pos[0][0]+1, new_block_pos[0][1]-2]
+            new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]-1]
+            new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]]
+            new_block_pos[3] = [new_block_pos[3][0]-2, new_block_pos[3][1]+1]
+            new_block_pos[4] = "up"
+        # elif current_tetronimo == "J":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "up"
+        # elif current_tetronimo == "L":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "up"
+        # elif current_tetronimo == "S":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "up"
+        # elif current_tetronimo == "T":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "up"
+        # elif current_tetronimo == "Z":
+        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
+        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
+        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
+        #     new_block_pos[4] = "up"
+
+    return new_block_pos
 
 
 def display_grid(playfield_grid):
@@ -337,6 +467,16 @@ def play_game():
                     for i in range(4):
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
                         playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
+                elif event.key == pygame.K_s:
+                    for y, x in block_pos[:-1]:
+                        playfield_grid[y][x][0] = 0
+                        playfield_grid[y][x][1] = "E"
+        
+                    allowed_move, block_pos, playfield_grid = can_rotate(playfield_grid, block_pos, chosen_tetromino, "AC")
+                    
+                    for i in range(4):
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 2
+                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
                 
                 # TODO might not add soft drop
                 # if event.key == pygame.K_DOWN:
@@ -406,12 +546,13 @@ screen = pygame.display.set_mode((350, 700))
 screen_bg_colour = (42,43,46)
 screen.fill(screen_bg_colour)
 
-
-
 # Timers:
 tetromino_drop_timer = pygame.USEREVENT + 1
 pygame.time.set_timer(tetromino_drop_timer, 500)
-# pygame.time.set_timer(tetromino_drop_timer, 1000)
+
 
 if __name__ == "__main__":
     play_game()
+
+# TODO LET PIECES TURN COUNTER CLOCKWISE
+# TODO CLEAR BOARD WHEN GETS LINE IN A ROW
