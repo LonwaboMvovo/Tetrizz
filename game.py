@@ -391,80 +391,55 @@ def get_tetromino_coords(chosen_tetromino):
     return block_start_pos
 
 
+def clear_lines(y, next_y, playfield_grid):
+    for y in range(y, next_y):
+        for x in range(0, 10):
+            playfield_grid[y][x][0] = 0
+            playfield_grid[y][x][1] = "E"
+
+    for _ in range(y-next_y):
+        playfield_grid.pop(y)
+        playfield_grid = [[[0, "E"] for _ in range(10)]] + playfield_grid
+
+    return playfield_grid
+
+
 def check_lines_cleared(playfield_grid):
     for y in range(21, 1, -1):
-        lines_cleard = 0
+        lines_cleared = 0
+        next_y = y-1
 
         if all(col[0] for col in playfield_grid[y]):
-            next_y = y-1
-            lines_cleard += 1
-
             if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
+                lines_cleared += 1
+
                 print("SINGLE")
-
-                for x in range(0, 10):
-                    playfield_grid[y][x][0] = 0
-                    playfield_grid[y][x][1] = "E"
-
-                new_playfield_grid = [[[0, "E"] for _ in range(10)]]
-
-                new_playfield_grid += playfield_grid[:-1]
-
-                playfield_grid = new_playfield_grid 
+                playfield_grid = clear_lines(y, next_y, playfield_grid)
             else:
                 next_y -=1
-                lines_cleard += 1
+                lines_cleared += 1
 
                 if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                     print("DOUBLE")
-
-                    for y in range(y, next_y):
-                        for x in range(0, 10):
-                            playfield_grid[y][x][0] = 0
-                            playfield_grid[y][x][1] = "E"
-
-                    new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(2)]
-
-                    new_playfield_grid += playfield_grid[:-2]
-
-                    playfield_grid = new_playfield_grid
+                    playfield_grid = clear_lines(y, next_y, playfield_grid)
                 else:
                     next_y -=1
-                    lines_cleard += 1
+                    lines_cleared += 1
 
                     if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                         print("TRIPLE")
-
-                        for y in range(y, next_y):
-                            for x in range(0, 10):
-                                playfield_grid[y][x][0] = 0
-                                playfield_grid[y][x][1] = "E"
-
-                        new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(3)]
-
-                        new_playfield_grid += playfield_grid[:-3]
-
-                        playfield_grid = new_playfield_grid
+                        playfield_grid = clear_lines(y, next_y, playfield_grid)
                     else:
                         next_y -=1
-                        lines_cleard += 1
+                        lines_cleared += 1
 
                         if not (next_y > 0 and all(col[0] for col in playfield_grid[next_y])):
                             print("TETRIS")
+                            playfield_grid = clear_lines(y, next_y, playfield_grid)
 
-                            for y in range(y, next_y):
-                                for x in range(0, 10):
-                                    playfield_grid[y][x][0] = 0
-                                    playfield_grid[y][x][1] = "E"
-
-                            new_playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(4)]
-
-                            new_playfield_grid += playfield_grid[:-4]
-
-                            playfield_grid = new_playfield_grid
-        
-        if lines_cleard > 0:
-            print(lines_cleard)
+        if lines_cleared > 0:
+            lines_cleared += 1
+            print(lines_cleared)
             break
 
     return playfield_grid
