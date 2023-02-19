@@ -226,11 +226,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]-1]
             new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]-1]
             new_block_pos[4] = "left"
-        # elif current_tetronimo == "Z":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "left"
+        elif current_tetronimo == "Z":
+            new_block_pos[0] = [new_block_pos[0][0]+2, new_block_pos[0][1]]
+            new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]-1]
+            new_block_pos[4] = "left"
     elif block_pos[-1] == "left":
         if current_tetronimo == "I":
             new_block_pos[0] = [new_block_pos[0][0]-1, new_block_pos[0][1]+2]
@@ -258,11 +258,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]+1]
             new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]-1]
             new_block_pos[4] = "down"
-        # elif current_tetronimo == "Z":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "down"
+        elif current_tetronimo == "Z":
+            new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]+2]
+            new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]-1]
+            new_block_pos[4] = "down"
     elif block_pos[-1] == "down":
         if current_tetronimo == "I":
             new_block_pos[0] = [new_block_pos[0][0]-2, new_block_pos[0][1]-1]
@@ -290,11 +290,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]+1]
             new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+1]
             new_block_pos[4] = "right"
-        # elif current_tetronimo == "Z":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "right"
+        elif current_tetronimo == "Z":
+            new_block_pos[0] = [new_block_pos[0][0]-2, new_block_pos[0][1]]
+            new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+1]
+            new_block_pos[4] = "right"
     elif block_pos[-1] == "right":
         if current_tetronimo == "I":
             new_block_pos[0] = [new_block_pos[0][0]+1, new_block_pos[0][1]-2]
@@ -322,11 +322,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]-1]
             new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]+1]
             new_block_pos[4] = "up"
-        # elif current_tetronimo == "Z":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[1] = [new_block_pos[1][0], new_block_pos[1][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "up"
+        elif current_tetronimo == "Z":
+            new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]-2]
+            new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]+1]
+            new_block_pos[4] = "up"
 
     return new_block_pos
 
