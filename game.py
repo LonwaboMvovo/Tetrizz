@@ -211,11 +211,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]+1]
             new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]-1]
             new_block_pos[4] = "left"
-        # elif current_tetronimo == "L":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "left"
+        elif current_tetronimo == "L":
+            new_block_pos[0] = [new_block_pos[0][0]+1, new_block_pos[0][1]+1]
+            new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]-2]
+            new_block_pos[4] = "left"
         # elif current_tetronimo == "S":
         #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
         #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
@@ -243,11 +243,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]+1]
             new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]-1]
             new_block_pos[4] = "down"
-        # elif current_tetronimo == "L":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "down"
+        elif current_tetronimo == "L":
+            new_block_pos[0] = [new_block_pos[0][0]-1, new_block_pos[0][1]+1]
+            new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]-1]
+            new_block_pos[3] = [new_block_pos[3][0]+2, new_block_pos[3][1]]
+            new_block_pos[4] = "down"
         # elif current_tetronimo == "S":
         #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
         #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
@@ -275,11 +275,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[1] = [new_block_pos[1][0]-1, new_block_pos[1][1]-1]
             new_block_pos[3] = [new_block_pos[3][0]+1, new_block_pos[3][1]+1]
             new_block_pos[4] = "right"
-        # elif current_tetronimo == "L":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "right"
+        elif current_tetronimo == "L":
+            new_block_pos[0] = [new_block_pos[0][0]-1, new_block_pos[0][1]-1]
+            new_block_pos[2] = [new_block_pos[2][0]+1, new_block_pos[2][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]+2]
+            new_block_pos[4] = "right"
         # elif current_tetronimo == "S":
         #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
         #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
@@ -307,11 +307,11 @@ def rotate_anti_clockwise(block_pos, current_tetronimo):
             new_block_pos[1] = [new_block_pos[1][0]+1, new_block_pos[1][1]-1]
             new_block_pos[3] = [new_block_pos[3][0]-1, new_block_pos[3][1]+1]
             new_block_pos[4] = "up"
-        # elif current_tetronimo == "L":
-        #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
-        #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
-        #     new_block_pos[3] = [new_block_pos[3][0], new_block_pos[3][1]]
-        #     new_block_pos[4] = "up"
+        elif current_tetronimo == "L":
+            new_block_pos[0] = [new_block_pos[0][0]+1, new_block_pos[0][1]-1]
+            new_block_pos[2] = [new_block_pos[2][0]-1, new_block_pos[2][1]+1]
+            new_block_pos[3] = [new_block_pos[3][0]-2, new_block_pos[3][1]]
+            new_block_pos[4] = "up"
         # elif current_tetronimo == "S":
         #     new_block_pos[0] = [new_block_pos[0][0], new_block_pos[0][1]]
         #     new_block_pos[2] = [new_block_pos[2][0], new_block_pos[2][1]]
