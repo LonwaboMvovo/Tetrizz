@@ -477,7 +477,7 @@ def play_game():
     playfield_grid = [[[0, "E"] for _ in range(10)] for _ in range(22)]
 
     # Get a new bag of 7 random pieces
-    seven_bag = get_seven_bag()
+    seven_bag = get_seven_bag() + get_seven_bag()
     # Get current piece shape
     chosen_tetromino = seven_bag.pop(0)
     # Get starting position of current tetromino
@@ -602,7 +602,6 @@ def play_game():
                         playfield_grid[y][x][0] = 2
                         playfield_grid[y][x][1] = chosen_tetromino
                 elif event.key == pygame.K_f:
-                    # input(block_pos)
                     if not swapped_held_piece:
                         for y, x in block_pos[:-1]:
                             playfield_grid[y][x][0] = 0
@@ -612,7 +611,6 @@ def play_game():
                             held_piece = chosen_tetromino
                             chosen_tetromino = seven_bag.pop(0)
                             block_pos = get_tetromino_coords(chosen_tetromino)
-                            # input(block_pos)
                         else:
                             old_held_piece = held_piece
                             held_piece = chosen_tetromino
@@ -658,8 +656,8 @@ def play_game():
             playfield_grid = check_lines_cleared(playfield_grid)
 
             # If bag is empty get a new bag of 7 random pieces
-            if len(seven_bag) == 0:
-                seven_bag = get_seven_bag()
+            if len(seven_bag) == 6:
+                seven_bag += get_seven_bag()
             chosen_tetromino = seven_bag.pop(0)
             block_pos = get_tetromino_coords(chosen_tetromino)
 
@@ -756,6 +754,86 @@ def play_game():
             pygame.draw.line(screen, "black", (255, 120), (255, 180), width = 1)
             pygame.draw.line(screen, "black", (225, 120), (225, 180), width = 1)
             pygame.draw.line(screen, "black", (225, 120), (255, 120), width = 1)
+
+        # Show next piece
+        screen.fill((42,43,46), pygame.Rect((650, 70), (150, 120), border_radius = 10))
+        pygame.draw.rect(screen, "black", (650, 70, 150, 120), width = 1, border_radius = 10)
+        next_text = pixel_type_font.render(f"Next", False, "grey")
+        next_text_rect = next_text.get_rect(midtop = (725, 80))
+        screen.blit(next_text, next_text_rect)
+
+        next_piece = seven_bag[0]
+
+        if next_piece == "O":
+            screen.fill((180,154,51), pygame.Rect((695, 120), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((725, 120), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((725, 150), (30, 30)))
+            screen.fill((180,154,51), pygame.Rect((695, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (695, 120, 60, 60), width = 1)
+            pygame.draw.line(screen, "black", (725, 120), (725, 180), width = 1)
+            pygame.draw.line(screen, "black", (695, 150), (755, 150), width = 1)
+        elif next_piece == "I":
+            screen.fill((50,180,132), pygame.Rect((665, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((695, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((725, 130), (30, 30)))
+            screen.fill((50,180,132), pygame.Rect((755, 130), (30, 30)))
+            pygame.draw.rect(screen, "black", (665, 130, 120, 30), width = 1)
+            pygame.draw.line(screen, "black", (695, 130), (695, 160), width = 1)
+            pygame.draw.line(screen, "black", (725, 130), (725, 160), width = 1)
+            pygame.draw.line(screen, "black", (755, 130), (755, 160), width = 1)
+        elif next_piece == "S":
+            screen.fill((130,178,49), pygame.Rect((695, 120), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((725, 120), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((695, 150), (30, 30)))
+            screen.fill((130,178,49), pygame.Rect((665, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (695, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (665, 150), (725, 150), width = 1)
+            pygame.draw.line(screen, "black", (665, 150), (665, 180), width = 1)
+            pygame.draw.line(screen, "black", (665, 180), (695, 180), width = 1)
+            pygame.draw.line(screen, "black", (725, 150), (755, 150), width = 1)
+            pygame.draw.line(screen, "black", (725, 120), (755, 120), width = 1)
+            pygame.draw.line(screen, "black", (755, 120), (755, 150), width = 1)
+        elif next_piece == "Z":
+            screen.fill((182,53,60), pygame.Rect((725, 120), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((695, 120), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((755, 150), (30, 30)))
+            screen.fill((182,53,60), pygame.Rect((725, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (725, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (695, 150), (785, 150), width = 1)
+            pygame.draw.line(screen, "black", (785, 150), (785, 180), width = 1)
+            pygame.draw.line(screen, "black", (755, 180), (755, 180), width = 1)
+            pygame.draw.line(screen, "black", (695, 150), (725, 150), width = 1)
+            pygame.draw.line(screen, "black", (695, 120), (725, 120), width = 1)
+            pygame.draw.line(screen, "black", (695, 120), (695, 150), width = 1)
+        elif next_piece == "L":
+            screen.fill((181,100,51), pygame.Rect((665, 150), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((725, 120), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((725, 150), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((695, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (725, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (665, 150), (665, 180), width = 1)
+            pygame.draw.line(screen, "black", (695, 150), (695, 180), width = 1)
+            pygame.draw.line(screen, "black", (665, 150), (755, 150), width = 1)
+            pygame.draw.line(screen, "black", (665, 180), (725, 180), width = 1)
+        elif next_piece == "J":
+            screen.fill((81,64,167), pygame.Rect((695, 120), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((755, 150), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((725, 150), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((695, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (695, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (755, 150), (755, 180), width = 1)
+            pygame.draw.line(screen, "black", (785, 150), (785, 180), width = 1)
+            pygame.draw.line(screen, "black", (695, 150), (785, 150), width = 1)
+            pygame.draw.line(screen, "black", (725, 180), (785, 180), width = 1)
+        elif next_piece == "T":
+            screen.fill((207,60,193), pygame.Rect((725, 120), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((755, 150), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((725, 150), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((695, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (695, 150, 90, 30), width = 1)
+            pygame.draw.line(screen, "black", (755, 120), (755, 180), width = 1)
+            pygame.draw.line(screen, "black", (725, 120), (725, 180), width = 1)
+            pygame.draw.line(screen, "black", (725, 120), (755, 120), width = 1)
 
         # Update screen/display
         pygame.display.update()
