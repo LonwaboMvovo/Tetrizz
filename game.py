@@ -869,5 +869,6 @@ if __name__ == "__main__":
     play_game()
 
 # TODO:
-# SHOW NEXT PIECE
 # DISPLAY LINES CLEARED INSTEAD OF PRINT
+# INCREASE SPEED OVER TIME
+# SHOW PTS
