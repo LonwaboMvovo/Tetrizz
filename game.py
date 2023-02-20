@@ -491,11 +491,11 @@ def play_game():
     # Used too see if should get a new piece from bag
     new_iteration = False
 
+    swapped_held_piece = False
+    held_piece = ""
+
     # Game loop
     while True:
-        # display_grid(playfield_grid)
-        # display_ghost(playfield_grid.copy(), block_pos.copy())
-
         # Check player inputs/events
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_q):
@@ -601,6 +601,33 @@ def play_game():
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 2
                         playfield_grid[y][x][1] = chosen_tetromino
+                elif event.key == pygame.K_f:
+                    # input(block_pos)
+                    if not swapped_held_piece:
+                        for y, x in block_pos[:-1]:
+                            playfield_grid[y][x][0] = 0
+                            playfield_grid[y][x][1] = "E" 
+
+                        if held_piece == "":
+                            held_piece = chosen_tetromino
+                            chosen_tetromino = seven_bag.pop(0)
+                            block_pos = get_tetromino_coords(chosen_tetromino)
+                            # input(block_pos)
+                        else:
+                            old_held_piece = held_piece
+                            held_piece = chosen_tetromino
+                            chosen_tetromino = old_held_piece
+                            block_pos = get_tetromino_coords(chosen_tetromino)
+
+                        swapped_held_piece = True
+
+                        for y in range(2, 22):
+                            for x in range(10):
+                                current_tetronimo = playfield_grid[y][x][1]
+
+                                if current_tetronimo == "G":
+                                    playfield_grid[y][x][0] = 0
+                                    playfield_grid[y][x][1] = "E"
                 
                 if event.key == pygame.K_SPACE:
                     while True:
@@ -620,6 +647,8 @@ def play_game():
                     new_iteration = True
 
         if new_iteration:
+            swapped_held_piece = False
+
             # Set current tetromino to be part of board
             for y in range(2, 22):
                 for x in range(10):
@@ -651,12 +680,11 @@ def play_game():
             pygame.draw.line(screen, "black", (0+325, y), (300+325, y), width = 1)
 
         # Drow hold piece area
+        screen.fill((42,43,46), pygame.Rect((150, 70), (150, 120), border_radius = 10))
         pygame.draw.rect(screen, "black", (150, 70, 150, 120), width = 1, border_radius = 10)
         hold_text = pixel_type_font.render(f"Hold", False, "grey")
         hold_text_rect = hold_text.get_rect(midtop = (225, 80))
         screen.blit(hold_text, hold_text_rect)
-
-        held_piece = "T"
 
         if held_piece == "O":
             screen.fill((180,154,51), pygame.Rect((195, 120), (30, 30)))
@@ -728,8 +756,6 @@ def play_game():
             pygame.draw.line(screen, "black", (255, 120), (255, 180), width = 1)
             pygame.draw.line(screen, "black", (225, 120), (225, 180), width = 1)
             pygame.draw.line(screen, "black", (225, 120), (255, 120), width = 1)
-        else:
-            pass
 
         # Update screen/display
         pygame.display.update()
@@ -765,6 +791,5 @@ if __name__ == "__main__":
     play_game()
 
 # TODO:
-# SWAP/HOLD PIECE
 # SHOW NEXT PIECE
 # DISPLAY LINES CLEARED INSTEAD OF PRINT
