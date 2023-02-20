@@ -656,7 +656,7 @@ def play_game():
         hold_text_rect = hold_text.get_rect(midtop = (225, 80))
         screen.blit(hold_text, hold_text_rect)
 
-        held_piece = "Z"
+        held_piece = "T"
 
         if held_piece == "O":
             screen.fill((180,154,51), pygame.Rect((195, 120), (30, 30)))
@@ -700,11 +700,34 @@ def play_game():
             pygame.draw.line(screen, "black", (195, 120), (225, 120), width = 1)
             pygame.draw.line(screen, "black", (195, 120), (195, 150), width = 1)
         elif held_piece == "L":
-            pass
+            screen.fill((181,100,51), pygame.Rect((165, 150), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((225, 120), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((225, 150), (30, 30)))
+            screen.fill((181,100,51), pygame.Rect((195, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (225, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (165, 150), (165, 180), width = 1)
+            pygame.draw.line(screen, "black", (195, 150), (195, 180), width = 1)
+            pygame.draw.line(screen, "black", (165, 150), (255, 150), width = 1)
+            pygame.draw.line(screen, "black", (165, 180), (225, 180), width = 1)
         elif held_piece == "J":
-            pass
+            screen.fill((81,64,167), pygame.Rect((195, 120), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((255, 150), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((225, 150), (30, 30)))
+            screen.fill((81,64,167), pygame.Rect((195, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (195, 120, 30, 60), width = 1)
+            pygame.draw.line(screen, "black", (255, 150), (255, 180), width = 1)
+            pygame.draw.line(screen, "black", (285, 150), (285, 180), width = 1)
+            pygame.draw.line(screen, "black", (195, 150), (285, 150), width = 1)
+            pygame.draw.line(screen, "black", (225, 180), (285, 180), width = 1)
         elif held_piece == "T":
-            pass
+            screen.fill((207,60,193), pygame.Rect((225, 120), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((255, 150), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((225, 150), (30, 30)))
+            screen.fill((207,60,193), pygame.Rect((195, 150), (30, 30)))
+            pygame.draw.rect(screen, "black", (195, 150, 90, 30), width = 1)
+            pygame.draw.line(screen, "black", (255, 120), (255, 180), width = 1)
+            pygame.draw.line(screen, "black", (225, 120), (225, 180), width = 1)
+            pygame.draw.line(screen, "black", (225, 120), (255, 120), width = 1)
         else:
             pass
 
