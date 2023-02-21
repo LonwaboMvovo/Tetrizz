@@ -867,8 +867,3 @@ pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
 
 if __name__ == "__main__":
     play_game()
-
-# TODO:
-# DISPLAY LINES CLEARED INSTEAD OF PRINT
-# INCREASE SPEED OVER TIME
-# SHOW PTS
