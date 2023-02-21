@@ -2,7 +2,6 @@
 import time
 import os
 import random
-import keyboard
 
 from termcolor import colored
 
@@ -48,14 +47,6 @@ def move_left(block_pos):
         new_block_pos.append([block_pos[i][0], block_pos[i][1]-1])
 
     return new_block_pos
-
-
-def can_rotate():
-    pass
-
-
-def rotate():
-    pass
 
 
 def display_grid(playfield_grid):
@@ -159,38 +150,6 @@ def play_game():
                     display_grid(playfield_grid)
 
                     change_state = False
-
-                if keyboard.is_pressed("q"):
-                    qweet = True
-                    break
-                    
-                if keyboard.is_pressed("left"):
-                    for y, x in block_pos:
-                        playfield_grid[y][x][0] = 0
-                        playfield_grid[y][x][1] = "E"
-
-                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "L")
-
-                    for i in range(4):
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
-
-                    change_state = True
-                
-                elif keyboard.is_pressed("right"):
-                    for y, x in block_pos:
-                        playfield_grid[y][x][0] = 0
-                        playfield_grid[y][x][1] = "E"
-
-                    allowed_bot, block_pos, playfield_grid = can_move(playfield_grid, block_pos, "R")
-
-                    for i in range(4):
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][0] = 1
-                        playfield_grid[block_pos[i][0]][block_pos[i][1]][1] = chosen_tetromino
-
-                    change_state = True
-                elif keyboard.is_pressed("up"):
-                    pass
             
                 current_time = time.time()
 
