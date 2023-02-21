@@ -1,4 +1,4 @@
-"""Tetris (with rizz)"""
+"""Tetris(with rizz) using pygame"""
 import pygame
 from random import choice
 from sys import exit
