@@ -468,6 +468,7 @@ def check_lines_cleared(playfield_grid):
 
 def end_game():
     print("GAME OVER!!!")
+    print("\nThanks for playing...as you can see this game is incomplete and probably still has some bugs but I'm bored now o.O")
     pygame.quit()
     exit()
 
@@ -656,7 +657,7 @@ def play_game():
             playfield_grid = check_lines_cleared(playfield_grid)
 
             # If bag is empty get a new bag of 7 random pieces
-            if len(seven_bag) == 6:
+            if len(seven_bag) <= 6:
                 seven_bag += get_seven_bag()
             chosen_tetromino = seven_bag.pop(0)
             block_pos = get_tetromino_coords(chosen_tetromino)
@@ -839,31 +840,43 @@ def play_game():
         pygame.display.update()
         # max set to 60 frames/sec
         clock.tick(60)
-        
-
-# inits bruv
-pygame.init()
-clock = pygame.time.Clock()
-
-# Set Window title
-pygame.display.set_caption("Tetrizz")
-
-# Set window icon
-icon_surface = pygame.Surface((32, 32))
-icon_surface.fill((139,0,139))
-pygame.display.set_icon(icon_surface)
-
-# Set background
-screen = pygame.display.set_mode((1000, 700))
-screen_bg_colour = (42,43,46)
-screen.fill(screen_bg_colour)
-
-# Timers:
-tetromino_drop_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(tetromino_drop_timer, 500)
-
-pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
 
 
 if __name__ == "__main__":
+    input("""\nWelcome to Tetrizz! It's basically tetris (but with rizz)
+
+Controls:
+left arrow key - move tetromino left
+right arrow key - move tetromino right
+up arrow key - rotate tetromino clockwise
+s key - rotate tetromino clockwise
+f key - swap/hold tetromino
+down arrow key - soft drop
+spacebar - hard drop
+          
+press any key to continue...
+""")
+
+    # inits bruv
+    pygame.init()
+    clock = pygame.time.Clock()
+
+    # Set Window title
+    pygame.display.set_caption("Tetrizz")
+
+    # Set window icon
+    icon_surface = pygame.Surface((32, 32))
+    icon_surface.fill((139,0,139))
+    pygame.display.set_icon(icon_surface)
+
+    # Set background
+    screen = pygame.display.set_mode((1000, 700))
+    screen_bg_colour = (42,43,46)
+    screen.fill(screen_bg_colour)
+
+    # Timers:
+    tetromino_drop_timer = pygame.USEREVENT + 1
+    pygame.time.set_timer(tetromino_drop_timer, 500)
+
+    pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
     play_game()
