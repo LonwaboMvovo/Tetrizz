@@ -849,10 +849,11 @@ Controls:
 left arrow key - move tetromino left
 right arrow key - move tetromino right
 up arrow key - rotate tetromino clockwise
-s key - rotate tetromino clockwise
-f key - swap/hold tetromino
 down arrow key - soft drop
 spacebar - hard drop
+s - rotate tetromino clockwise
+f - swap/hold tetromino
+q - quit game
           
 press any key to continue...
 """)
