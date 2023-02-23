@@ -879,5 +879,10 @@ press any key to continue...
     tetromino_drop_timer = pygame.USEREVENT + 1
     pygame.time.set_timer(tetromino_drop_timer, 500)
 
+    # Audio:
+    pygame.mixer.music.load('audio/Tetrizz soundtrack-1.wav')
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)
+
     pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
     play_game()
