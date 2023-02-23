@@ -14,14 +14,14 @@ Completed lines disappear. The game ends when the stack of blocks reaches the to
 
 ***Controls***
 
-left arrow - move tetromino left
-right arrow - move tetromino right
-up arrow - rotate tetromino clockwise
-down arrow - soft drop
-spacebar - hard drop
-s - rotate tetromino clockwise
-f - swap/hold tetromino
-q - quit game
+left arrow - move tetromino left <br />
+right arrow - move tetromino right <br />
+up arrow - rotate tetromino clockwise <br />
+down arrow - soft drop <br />
+spacebar - hard drop <br />
+s - rotate tetromino clockwise <br />
+f - swap/hold tetromino <br />
+q - quit game <br />
           
 ***Features***
 
