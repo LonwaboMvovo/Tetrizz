@@ -846,10 +846,10 @@ if __name__ == "__main__":
     input("""\nWelcome to Tetrizz! It's basically tetris (but with rizz)
 
 Controls:
-left arrow key - move tetromino left
-right arrow key - move tetromino right
-up arrow key - rotate tetromino clockwise
-down arrow key - soft drop
+left arrow - move tetromino left
+right arrow - move tetromino right
+up arrow - rotate tetromino clockwise
+down arrow - soft drop
 spacebar - hard drop
 s - rotate tetromino clockwise
 f - swap/hold tetromino
