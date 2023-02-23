@@ -23,9 +23,8 @@ f - swap/hold tetromino <br />
 q - quit game <br />
           
 ***Features*** <br />
-Classic Tetris gameplay mechanics
-*OrIgInAl* background music
-Pause and restart functionality
+Classic Tetris gameplay mechanics <br />
+**ORIGINAL** background music <br />
 
 ***Acknowledgments*** <br />
 Tetris
