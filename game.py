@@ -460,10 +460,9 @@ def check_lines_cleared(playfield_grid):
                             playfield_grid = clear_lines(y, next_y, playfield_grid)
 
         if lines_cleared > 0:
-            lines_cleared += 1
             break
 
-    return playfield_grid
+    return playfield_grid, lines_cleared
 
 
 def end_game():
@@ -654,7 +653,10 @@ def play_game():
                     if playfield_grid[y][x][0] == 2:
                         playfield_grid[y][x][0] = 1
 
-            playfield_grid = check_lines_cleared(playfield_grid)
+            playfield_grid, lines_cleared = check_lines_cleared(playfield_grid)
+
+            while lines_cleared > 0:
+                playfield_grid, lines_cleared = check_lines_cleared(playfield_grid)
 
             # If bag is empty get a new bag of 7 random pieces
             if len(seven_bag) <= 6:
