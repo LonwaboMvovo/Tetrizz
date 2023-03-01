@@ -845,46 +845,47 @@ def play_game():
         clock.tick(60)
 
 
-input("""\nWelcome to Tetrizz! It's basically tetris (but with rizz)
+if __name__ != "__main__":
+    input("""\nWelcome to Tetrizz! It's basically tetris (but with rizz)
 
-Controls:
-left arrow - move tetromino left
-right arrow - move tetromino right
-up arrow - rotate tetromino clockwise
-down arrow - soft drop
-spacebar - hard drop
-s - rotate tetromino clockwise
-f - swap/hold tetromino
-q - quit game
-        
-press any key to continue...
-""")
+    Controls:
+    left arrow - move tetromino left
+    right arrow - move tetromino right
+    up arrow - rotate tetromino clockwise
+    down arrow - soft drop
+    spacebar - hard drop
+    s - rotate tetromino clockwise
+    f - swap/hold tetromino
+    esc/q - quit game
+            
+    press any key to continue...
+    """)
 
-# inits bruv
-pygame.init()
-clock = pygame.time.Clock()
+    # inits bruv
+    pygame.init()
+    clock = pygame.time.Clock()
 
-# Set Window title
-pygame.display.set_caption("Tetrizz")
+    # Set Window title
+    pygame.display.set_caption("Tetrizz")
 
-# Set window icon
-icon_surface = pygame.Surface((32, 32))
-icon_surface.fill((139,0,139))
-pygame.display.set_icon(icon_surface)
+    # Set window icon
+    icon_surface = pygame.Surface((32, 32))
+    icon_surface.fill((139,0,139))
+    pygame.display.set_icon(icon_surface)
 
-# Set background
-screen = pygame.display.set_mode((1000, 700))
-screen_bg_colour = (42,43,46)
-screen.fill(screen_bg_colour)
+    # Set background
+    screen = pygame.display.set_mode((1000, 700))
+    screen_bg_colour = (42,43,46)
+    screen.fill(screen_bg_colour)
 
-# Timers:
-tetromino_drop_timer = pygame.USEREVENT + 1
-pygame.time.set_timer(tetromino_drop_timer, 500)
+    # Timers:
+    tetromino_drop_timer = pygame.USEREVENT + 1
+    pygame.time.set_timer(tetromino_drop_timer, 500)
 
-# Audio:
-pygame.mixer.music.load('audio/Tetrizz soundtrack-1.wav')
-pygame.mixer.music.set_volume(0.2)
-pygame.mixer.music.play(-1)
+    # Audio:
+    pygame.mixer.music.load('audio/Tetrizz soundtrack-1.wav')
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)
 
-pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
-play_game()
+    pixel_type_font = pygame.font.Font("font/Pixeltype.ttf", 50)
+    play_game()
