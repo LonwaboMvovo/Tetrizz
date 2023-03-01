@@ -1,7 +1,10 @@
 """Tetris(with rizz) using pygame"""
 import pygame
+import pkg_resources
+import subprocess
+
 from random import choice
-from sys import exit
+from sys import exit, executable
 
 
 def can_move(playfield_grid, block_pos, direction="D"):
@@ -845,6 +848,15 @@ def play_game():
 
 
 if __name__ == "__main__":
+    # Make sure pygame installed
+    required = {'pygame'}
+    installed = {pkg.key for pkg in pkg_resources.working_set}
+    missing = required - installed
+
+    if missing:
+        python = executable
+        subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
+
     input("""\nWelcome to Tetrizz! It's basically tetris (but with rizz)
 
 Controls:
