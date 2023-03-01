@@ -574,7 +574,7 @@ def play_game():
                             if current_tetronimo == "G":
                                 playfield_grid[y][x][0] = 0
                                 playfield_grid[y][x][1] = "E"
-                elif event.key == pygame.K_s:
+                elif event.key == pygame.K_s or event.key == pygame.K_z:
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 0
                         playfield_grid[y][x][1] = "E"
@@ -602,7 +602,7 @@ def play_game():
                     for y, x in block_pos[:-1]:
                         playfield_grid[y][x][0] = 2
                         playfield_grid[y][x][1] = chosen_tetromino
-                elif event.key == pygame.K_f:
+                elif event.key == pygame.K_f or event.key == pygame.K_c:
                     if not swapped_held_piece:
                         for y, x in block_pos[:-1]:
                             playfield_grid[y][x][0] = 0
@@ -854,8 +854,8 @@ if __name__ != "__main__":
     up arrow - rotate tetromino clockwise
     down arrow - soft drop
     spacebar - hard drop
-    s - rotate tetromino clockwise
-    f - swap/hold tetromino
+    s/z - rotate tetromino clockwise
+    f/c - swap/hold tetromino
     esc/q - quit game
             
     press any key to continue...
