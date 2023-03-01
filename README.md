@@ -5,8 +5,8 @@ This is a Tetris clone built using Pygame.
 
 ***Installation*** <br />
 Clone the repository to your local machine. <br />
-Install python and pygame. <br />
-Run python game.py to start the game.
+Have python installed. <br />
+Run python main.py to start the game.
 
 ***Gameplay*** <br />
 The gameplay mechanics are the same as the original Tetris game. The player must move and rotate falling blocks to create complete horizontal lines without any gaps.
