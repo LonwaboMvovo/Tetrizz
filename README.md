@@ -20,7 +20,7 @@ down arrow - soft drop <br />
 spacebar - hard drop <br />
 s - rotate tetromino clockwise <br />
 f - swap/hold tetromino <br />
-q - quit game <br />
+esc/q - quit game <br />
           
 ***Features*** <br />
 Classic Tetris gameplay mechanics <br />
