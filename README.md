@@ -18,8 +18,8 @@ right arrow - move tetromino right <br />
 up arrow - rotate tetromino clockwise <br />
 down arrow - soft drop <br />
 spacebar - hard drop <br />
-s - rotate tetromino clockwise <br />
-f - swap/hold tetromino <br />
+s/z - rotate tetromino clockwise <br />
+f/c - swap/hold tetromino <br />
 esc/q - quit game <br />
           
 ***Features*** <br />
