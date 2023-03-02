@@ -28,3 +28,7 @@ Classic Tetris gameplay mechanics <br />
 
 ***Acknowledgments*** <br />
 Tetris
+
+***License:***
+
+![image](https://user-images.githubusercontent.com/57689939/220727747-d79ef686-83bb-4c21-b1d8-c177c97729c2.png)
