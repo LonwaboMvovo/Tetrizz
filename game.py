@@ -468,7 +468,7 @@ def check_lines_cleared(playfield_grid):
 
 def end_game():
     print("GAME OVER!!!")
-    print("\nThanks for playing...as you can see this game is incomplete and probably still has some bugs but I'm bored now o.O")
+    print("\nThanks for playing... o.O")
     pygame.quit()
     exit()
 
