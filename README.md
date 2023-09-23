@@ -1,5 +1,5 @@
 # Tetrizz
-This is a Tetris clone built using Pygame.
+This is a Tetris clone built using Pygame, because playing with these blocks never gets old (apparently).
 
 <img src="https://user-images.githubusercontent.com/57689939/221411152-7de7b0c6-838a-4aba-8808-5638ac9470dd.png" height="350">
 
