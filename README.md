@@ -1,5 +1,5 @@
 # Tetrizz
-Tetris clone built using Pygame, because playing with these blocks never gets old (apparently).
+Tetris clone built using Pygame - because who needs innovation when you can shamelessly ride the coattails of gaming nostalgia?
 
 <img src="https://user-images.githubusercontent.com/57689939/221411152-7de7b0c6-838a-4aba-8808-5638ac9470dd.png" height="350">
 
